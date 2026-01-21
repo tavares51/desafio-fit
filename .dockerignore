@@ -1,0 +1,12 @@
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+local.db
+.mypy_cache
+.pytest_cache
+.env
+.git
+.gitignore
+migrations/versions/__pycache__

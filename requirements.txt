@@ -1,0 +1,21 @@
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+
+SQLAlchemy==2.0.31
+
+# SQLite local (não precisa driver extra)
+# (quando migrar pra Postgres, adicione psycopg2-binary)
+
+python-jose==3.3.0
+
+passlib==1.7.4
+bcrypt==3.2.2
+
+pydantic==2.9.0
+pydantic-settings==2.3.4
+
+alembic==1.13.2
+python-dotenv==1.0.1
+
+pytest==8.2.2
+httpx==0.27.0
