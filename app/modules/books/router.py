@@ -30,7 +30,10 @@ def create_book(
     db: Session = Depends(get_db),
     _user=Security(get_current_user, scopes=[settings.SCOPE_BOOKS_WRITE]),
 ):
-    book = _service.create(db, **payload.model_dump())
+    data = payload.model_dump()
+    if data.get("cover_url") is not None:
+        data["cover_url"] = str(data["cover_url"])
+    book = _service.create(db, **data)
     return book
 
 
@@ -51,6 +54,8 @@ def update_book(
     _user=Security(get_current_user, scopes=[settings.SCOPE_BOOKS_WRITE]),
 ):
     data = {k: v for k, v in payload.model_dump().items() if v is not None}
+    if data.get("cover_url") is not None:
+        data["cover_url"] = str(data["cover_url"])
     return _service.update(db, book_id=book_id, **data)
 
 

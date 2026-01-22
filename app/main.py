@@ -57,7 +57,7 @@ def create_app() -> FastAPI:
             content={"error": {"message": "Erro interno.", "details": {}}},
         )
 
-    app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+    app.include_router(auth_router)
     app.include_router(books_router, prefix="/books", tags=["Books"])
 
     return app

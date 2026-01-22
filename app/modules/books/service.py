@@ -20,6 +20,7 @@ class BookService:
         *,
         title: str,
         author: str,
+        resume: Optional[str],
         date_publish: Optional[date] = None,
         cover_url: Optional[str] = None,
     ) -> BookModel:
@@ -29,6 +30,7 @@ class BookService:
             author=author,
             date_publish=date_publish,
             cover_url=cover_url,
+            resume=resume,
         )
 
     def list(self, db: Session) -> List[BookModel]:

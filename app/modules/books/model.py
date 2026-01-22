@@ -15,5 +15,6 @@ class BookModel(Base):
     title: Mapped[str] = mapped_column(String(180), nullable=False)
     author: Mapped[str] = mapped_column(String(120), nullable=False)
     date_publish: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    resume: Mapped[Optional[str]] = mapped_column(String(1000), nullable=True)
     cover_url: Mapped[Optional[str]] = mapped_column(
         String(500), nullable=True)

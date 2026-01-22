@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, HttpUrl
 class BookCreate(BaseModel):
     title: str = Field(min_length=1, max_length=180)
     author: str = Field(min_length=1, max_length=120)
+    resume: Optional[str] = None
     date_publish: Optional[date] = None
     cover_url: Optional[HttpUrl] = None
 
@@ -16,6 +17,7 @@ class BookCreate(BaseModel):
 class BookUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=180)
     author: Optional[str] = Field(default=None, min_length=1, max_length=120)
+    resume: Optional[str] = None
     date_publish: Optional[date] = None
     cover_url: Optional[HttpUrl] = None
 
@@ -24,6 +26,7 @@ class BookOut(BaseModel):
     id: int
     title: str
     author: str
+    resume: Optional[str] 
     date_publish: Optional[date]
     cover_url: Optional[HttpUrl]
 

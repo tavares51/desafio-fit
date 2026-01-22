@@ -16,6 +16,7 @@ class BookRepository(Protocol):
         *,
         title: str,
         author: str,
+        resume: Optional[str],
         date_publish: Optional[date],
         cover_url: Optional[str] = None,
     ) -> BookModel:
@@ -41,6 +42,7 @@ class SqlAlchemyBookRepository:
         *,
         title: str,
         author: str,
+        resume: Optional[str],
         date_publish: Optional[date],
         cover_url: Optional[str] = None,
     ) -> BookModel:
@@ -49,6 +51,7 @@ class SqlAlchemyBookRepository:
             author=author,
             date_publish=date_publish,
             cover_url=cover_url,
+            resume=resume,
         )
         db.add(book)
         db.commit()
