@@ -122,7 +122,7 @@ docker compose exec api alembic upgrade head
 BOAS PRÁTICAS APLICADAS
 --------------------------------------------------
 - Separação de responsabilidades
-- JWT simples (sem OAuth2)
+- JWT simples 
 - Versionamento de banco com Alembic
 - Swagger automático
 - Projeto pronto para deploy
