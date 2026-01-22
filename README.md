@@ -1,113 +1,134 @@
-Desafio Fit - API de Livros (FastAPI)
-=================================
+DESAFIO FIT - API DE LIVROS (FASTAPI)
+================================
 
-API simples para cadastro de livros com autenticação JWT, documentação Swagger e boas práticas (camadas: router → service → repository).
+API REST para cadastro de livros com autenticação JWT, seguindo boas práticas
+de arquitetura (Clean Code, SOLID, separação de camadas) e pronta para rodar
+localmente, com Docker ou Docker Compose.
 
-Stack
------
-- Python 3.9
-- FastAPI + Uvicorn
-- SQLAlchemy 2.0 (sync)
-- Alembic (migrations)
-- SQLite (local)
-- JWT (python-jose)
-- Password hashing: passlib + bcrypt
+--------------------------------------------------
+VISÃO GERAL
+--------------------------------------------------
+- FastAPI
+- SQLAlchemy + Alembic
+- SQLite (local) ou PostgreSQL (Docker)
+- JWT simples (Bearer Token)
+- Swagger / OpenAPI automático
+- Arquitetura em camadas (router, service, repository)
 
-Estrutura do Projeto (resumo)
------------------------------
-- app/main.py -> instancia FastAPI e registra routers
-- app/config.py -> settings via env
-- app/db/ -> engine, sessão, Base
-- app/modules/auth/ -> login e validação JWT
-- app/modules/books/ -> CRUD de livros (router/service/repository/model/schemas)
-- migrations/ -> Alembic
+--------------------------------------------------
+ESTRUTURA DO PROJETO
+--------------------------------------------------
+app/
+├── main.py            -> Inicialização da aplicação
+├── config.py          -> Configurações (env)
+├── db/                -> Engine, sessão e Base
+├── common/            -> Segurança, JWT, utilitários
+├── modules/
+│   ├── auth/          -> Login e geração de token
+│   └── books/         -> CRUD de livros
+migrations/            -> Alembic (migrations)
+Dockerfile
+docker-compose.yml
+requirements.txt
 
-Como rodar local (sem Docker)
------------------------------
-1) Criar venv e instalar deps
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-
-2) Configurar .env
-   Crie um arquivo .env na raiz:
-   DATABASE_URL=sqlite:///./local.db
-   JWT_SECRET_KEY=change-me
-   JWT_ALGORITHM=HS256
-   JWT_ACCESS_TOKEN_EXPIRES_MIN=60
-
-3) Rodar migrations
-   alembic upgrade head
-
-4) Subir a API
-   uvicorn app.main:app --reload --reload-dir app
-
-Acessos:
-- Swagger: http://127.0.0.1:8000/docs
-
-
-Autenticação (Login) - Como usar
---------------------------------
-Usuário padrão (para simplificar o desafio):
-- username: admin
-- password: admin
-
-1) Fazer login (pegar token)
-   No Swagger, use: POST /auth/login
-   Body:
-   {
-     "username": "admin",
-     "password": "admin"
-   }
-
-   Resposta:
-   {
-     "access_token": "xxxxx.yyyyy.zzzzz",
-     "token_type": "bearer"
-   }
-
-2) Usar token no Swagger
-   - Clique em "Authorize" no topo do Swagger
-   - Cole:
-     Bearer SEU_TOKEN_AQUI
-   - Autorize
-
-Agora você consegue chamar endpoints protegidos.
-
-
-Endpoints principais
--------------------
-- POST /auth/login -> gera JWT
-- GET /books -> lista livros
-- POST /books -> cria livro
-- GET /books/{id} -> detalhes
-- PATCH /books/{id} -> atualiza
-- DELETE /books/{id} -> remove
-
-
-Modelo de Livro
----------------
+--------------------------------------------------
+MODELO DE LIVRO
+--------------------------------------------------
 - title (string)
 - author (string)
 - date_publish (YYYY-MM-DD, opcional)
 - cover_url (URL da capa, opcional)
 
-Exemplo:
+--------------------------------------------------
+VARIÁVEIS DE AMBIENTE
+--------------------------------------------------
+Crie um arquivo .env na raiz:
+
+DATABASE_URL=sqlite:///./local.db
+JWT_SECRET_KEY=change-me
+JWT_ALGORITHM=HS256
+JWT_ACCESS_TOKEN_EXPIRES_MIN=60
+
+--------------------------------------------------
+RODAR LOCAL (SEM DOCKER)
+--------------------------------------------------
+1) Criar ambiente virtual
+python3 -m venv .venv
+source .venv/bin/activate
+
+2) Instalar dependências
+pip install -r requirements.txt
+
+3) Aplicar migrations
+alembic upgrade head
+
+4) Subir a API
+uvicorn app.main:app --reload --reload-dir app
+
+Swagger:
+http://127.0.0.1:8000/docs
+
+--------------------------------------------------
+AUTENTICAÇÃO (LOGIN)
+--------------------------------------------------
+Endpoint:
+POST /auth/login
+
+Payload:
 {
-  "title": "Clean Code",
-  "author": "Robert C. Martin",
-  "date_publish": "2008-08-01",
-  "cover_url": "https://exemplo.com/capa.jpg"
+  "username": "admin",
+  "password": "admin"
 }
 
+Resposta:
+{
+  "access_token": "<jwt>",
+  "token_type": "bearer"
+}
 
-Rodar testes
-------------
-pytest -q
+No Swagger:
+- Clique em Authorize
+- Cole: Bearer <token>
 
+--------------------------------------------------
+ENDPOINTS PRINCIPAIS
+--------------------------------------------------
+POST   /auth/login
+GET    /books
+POST   /books
+GET    /books/{id}
+PATCH  /books/{id}
+DELETE /books/{id}
 
-Notas (dependências bcrypt/passlib)
-----------------------------------
-Se ocorrer erro de compatibilidade do bcrypt/passlib, fixe as versões:
-- passlib==1.7.4
-- bcrypt==3.2.2
+--------------------------------------------------
+RODAR COM DOCKER
+--------------------------------------------------
+Build da imagem:
+docker build -t desafio-fit-api .
+
+Rodar container:
+docker run -p 8000:8000 --env-file .env desafio-fit-api
+
+--------------------------------------------------
+RODAR COM DOCKER COMPOSE
+--------------------------------------------------
+Subir serviços:
+docker compose up --build
+
+Aplicar migrations:
+docker compose exec api alembic upgrade head
+
+--------------------------------------------------
+BOAS PRÁTICAS APLICADAS
+--------------------------------------------------
+- Separação de responsabilidades
+- JWT simples (sem OAuth2)
+- Versionamento de banco com Alembic
+- Swagger automático
+- Projeto pronto para deploy
+
+--------------------------------------------------
+OBSERVAÇÕES
+--------------------------------------------------
+O projeto foi desenvolvido com foco em clareza, simplicidade e padrão
+profissional, sendo adequado para avaliações técnicas e expansão futura.

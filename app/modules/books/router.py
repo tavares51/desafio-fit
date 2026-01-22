@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Security, status
+from fastapi import APIRouter, Depends, Security, status, UploadFile, File
 from sqlalchemy.orm import Session
 
 from app.config import settings
@@ -57,6 +57,26 @@ def update_book(
     if data.get("cover_url") is not None:
         data["cover_url"] = str(data["cover_url"])
     return _service.update(db, book_id=book_id, **data)
+
+
+@router.post("/{book_id}/cover", response_model=BookOut)
+def upload_book_cover(
+    book_id: int,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    _user=Security(get_current_user, scopes=[settings.SCOPE_BOOKS_WRITE]),
+):
+    try:
+        content = file.file.read()
+    finally:
+        file.file.close()
+    return _service.upload_cover(
+        db,
+        book_id=book_id,
+        filename=file.filename or "cover",
+        content=content,
+        content_type=file.content_type,
+    )
 
 
 @router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)

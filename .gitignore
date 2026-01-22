@@ -42,3 +42,15 @@ Thumbs.db
 # Local databases
 *.db
 migrations/
+.env
+.env.*
+.local/
+.settings/
+*.log
+logs/
+*.bak
+*.tmp
+temp/
+tmp/
+.env
+.env

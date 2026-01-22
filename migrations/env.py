@@ -15,7 +15,6 @@ except Exception:
 from app.config import settings
 from app.db.base import Base
 
-# IMPORTANTE: importe seus models para o Alembic "enxergar" as tabelas
 from app.modules.books.model import BookModel  # noqa: F401
 
 config = context.config
@@ -23,7 +22,6 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# ✅ isto é O ponto do seu erro:
 target_metadata = Base.metadata
 
 

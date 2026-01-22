@@ -3,8 +3,9 @@ uvicorn[standard]==0.30.1
 
 SQLAlchemy==2.0.31
 
-# SQLite local (não precisa driver extra)
-# (quando migrar pra Postgres, adicione psycopg2-binary)
+psycopg2-binary==2.9.9
+supabase==2.7.1
+python-multipart==0.0.9
 
 python-jose==3.3.0
 
