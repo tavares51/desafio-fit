@@ -24,8 +24,8 @@ app/ <br>
 ├── db/                -> Engine, sessão e Base <br>
 ├── common/            -> Segurança, JWT, utilitários <br>
 ├── modules/ <br>
-│   ├── auth/          -> Login e geração de token <br>
-│   └── books/         -> CRUD de livros <br>
+├──   ├── auth/          -> Login e geração de token <br>
+├──   └── books/         -> CRUD de livros <br>
 migrations/            -> Alembic (migrations) <br>
 Dockerfile <br>
 docker-compose.yml <br>
