@@ -42,12 +42,7 @@ MODELO DE LIVRO
 --------------------------------------------------
 VARIÁVEIS DE AMBIENTE
 --------------------------------------------------
-Crie um arquivo .env na raiz:
-
-DATABASE_URL=sqlite:///./local.db
-JWT_SECRET_KEY=change-me
-JWT_ALGORITHM=HS256
-JWT_ACCESS_TOKEN_EXPIRES_MIN=60
+Crie um arquivo .env na raiz.
 
 --------------------------------------------------
 RODAR LOCAL (SEM DOCKER)
