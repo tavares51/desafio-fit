@@ -4,12 +4,12 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from fastapi import Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, SecurityScopes
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 
 from app.config import settings
-from app.common.errors import UnauthorizedError
+from app.common.errors import UnauthorizedError, ForbiddenError
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -55,6 +55,7 @@ def decode_token(token: str) -> dict[str, Any]:
 
 
 def get_current_user(
+    security_scopes: SecurityScopes,
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
 ) -> dict[str, Any]:
     """
@@ -69,4 +70,9 @@ def get_current_user(
     if not subject:
         raise UnauthorizedError("Token sem subject (sub).")
 
-    return {"username": subject}
+    token_scopes = payload.get("scopes", [])
+    missing_scopes = [scope for scope in security_scopes.scopes if scope not in token_scopes]
+    if missing_scopes:
+        raise ForbiddenError("Permissão insuficiente.", {"missing_scopes": missing_scopes})
+
+    return {"username": subject, "scopes": token_scopes}

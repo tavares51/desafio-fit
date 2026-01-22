@@ -8,6 +8,6 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @router.post("/login", response_model=TokenOut)
 def login(payload: LoginIn) -> TokenOut:
-    authenticate_user(payload.username, payload.password)
-    token = create_access_token(payload.username)
+    user = authenticate_user(payload.username, payload.password)
+    token = create_access_token(user["username"], user["scopes"])
     return TokenOut(access_token=token)
