@@ -40,11 +40,6 @@ MODELO DE LIVRO
 - cover_url (URL da capa, opcional)
 
 --------------------------------------------------
-VARIÁVEIS DE AMBIENTE
---------------------------------------------------
-Crie um arquivo .env na raiz.
-
---------------------------------------------------
 RODAR LOCAL (SEM DOCKER)
 --------------------------------------------------
 1) Criar ambiente virtual
