@@ -18,17 +18,17 @@ VISÃO GERAL
 --------------------------------------------------
 ESTRUTURA DO PROJETO
 --------------------------------------------------
-app/
-├── main.py            -> Inicialização da aplicação
-├── config.py          -> Configurações (env)
-├── db/                -> Engine, sessão e Base
-├── common/            -> Segurança, JWT, utilitários
-├── modules/
-│   ├── auth/          -> Login e geração de token
-│   └── books/         -> CRUD de livros
-migrations/            -> Alembic (migrations)
-Dockerfile
-docker-compose.yml
+app/ <br>
+├── main.py            -> Inicialização da aplicação <br>
+├── config.py          -> Configurações (env) <br>
+├── db/                -> Engine, sessão e Base <br>
+├── common/            -> Segurança, JWT, utilitários <br>
+├── modules/ <br>
+│   ├── auth/          -> Login e geração de token <br>
+│   └── books/         -> CRUD de livros <br>
+migrations/            -> Alembic (migrations) <br>
+Dockerfile <br>
+docker-compose.yml <br>
 requirements.txt
 
 --------------------------------------------------
