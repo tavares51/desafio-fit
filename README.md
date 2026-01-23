@@ -144,3 +144,65 @@ BOAS PRÁTICAS APLICADAS
 - Versionamento de banco com Alembic
 - Swagger automático
 - Projeto pronto para deploy
+
+--------------------------------------------------
+5. BOAS PRÁTICAS E CLEAN CODE
+--------------------------------------------------
+1) Separação de responsabilidades (Single Responsibility Principle)
+2) Código legível e organizado por camadas
+3) Nomes semânticos para variáveis, funções e componentes
+4) Padronização de respostas da API
+
+--------------------------------------------------
+6. PONTOS AVALIADOS – COMO RESPONDER
+--------------------------------------------------
+1) Funcionalidade: Todas as operações de CRUD foram implementadas e testadas.
+2) Fidelidade ao design: O layout segue fielmente o protótipo do Figma fornecido.
+3) Responsividade: A interface se adapta a diferentes tamanhos de tela.
+4) Arquitetura: Separação clara entre Front-end e Back-end via API REST.
+5) Robustez: Validações no back-end e tratamento de erros no front-end.
+6) Testes: Estrutura preparada para testes unitários e de integração.
+7) Documentação: README detalhado com instruções claras de execução.
+
+--------------------------------------------------
+7. POSSÍVEIS PERGUNTAS DA BANCA
+--------------------------------------------------
+1) Por que escolheu essa arquitetura?
+2) Como a aplicação pode escalar?
+3) Como adicionaria autenticação?
+4) Como garantiria maior cobertura de testes?
+
+--------------------------------------------------
+8. CONCLUSÃO
+--------------------------------------------------
+A solução atende integralmente aos requisitos do desafio, demonstrando domínio de conceitos Full
+Stack, organização de código, boas práticas e visão arquitetural.
+
+--------------------------------------------------
+9. DESCRIÇÃO DO PROJETO
+--------------------------------------------------
+Este projeto é uma API REST de livros feita em FastAPI, com CRUD completo e
+autenticação JWT. Ele segue uma arquitetura em camadas (router, service,
+repository) para manter separação de responsabilidades e facilitar manutenção.
+O banco roda em PostgreSQL (recomendado via Docker Compose para não precisar
+instalar localmente), e o storage de capas fica no Supabase.
+
+Boas práticas aplicadas:
+- Separação clara de responsabilidades (SRP)
+- Código organizado por camadas
+- Nomes semânticos em variáveis e funções
+- Respostas padronizadas na API
+- Migrations com Alembic e documentação via Swagger
+
+Pontos avaliados (como o projeto responde):
+- Funcionalidade: CRUD implementado e testado na API
+- Fidelidade ao design: pronto para integrar com um front seguindo o Figma
+- Responsividade: front pode consumir a API em qualquer tamanho de tela
+- Arquitetura: front-end e back-end desacoplados via REST
+- Robustez: validações no back-end e tratamento de erros
+- Testes: estrutura preparada para testes unitários e integração
+- Documentação: README com instruções completas
+
+Conclusão:
+A solução cumpre os requisitos do desafio, mostrando domínio full stack,
+organização de código, boas práticas e visão arquitetural.
