@@ -68,7 +68,7 @@ class BookService:
             raise AppError("Bucket do Supabase não configurado.")
 
         suffix = Path(filename or "cover").suffix
-        object_path = f"books/{book_id}/{uuid4().hex}{suffix}"
+        object_path = f"books/{uuid4().hex}{suffix}"
 
         try:
             client = get_supabase_client()
