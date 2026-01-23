@@ -104,13 +104,13 @@ No Swagger:
 --------------------------------------------------
 ENDPOINTS PRINCIPAIS
 --------------------------------------------------
-POST   /auth/login
-GET    /books
-POST   /books
-GET    /books/{id}
-PATCH  /books/{id}
-DELETE /books/{id}
-POST   /books/{id}/cover
+POST   /auth/login <br>
+GET    /books <br>
+POST   /books <br>
+GET    /books/{id} <br>
+PATCH  /books/{id} <br>
+DELETE /books/{id} <br>
+POST   /books/{id}/cover <br>
 
 --------------------------------------------------
 RODAR COM DOCKER
@@ -145,8 +145,3 @@ BOAS PRÁTICAS APLICADAS
 - Swagger automático
 - Projeto pronto para deploy
 
---------------------------------------------------
-OBSERVAÇÕES
---------------------------------------------------
-O projeto foi desenvolvido com foco em clareza, simplicidade e padrão
-profissional, sendo adequado para avaliações técnicas e expansão futura.
