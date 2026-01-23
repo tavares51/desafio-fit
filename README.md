@@ -126,12 +126,12 @@ Obs: se usar Postgres local fora do container, troque o host para
 - DATABASE_URL=postgresql+psycopg2://postgres:postgres@host.docker.internal:5432/desafio_fit?sslmode=disable
 
 --------------------------------------------------
-RODAR COM DOCKER COMPOSE
+RODAR COM DOCKER COMPOSE (RECOMENDADO)
 --------------------------------------------------
 Subir serviços (API + Postgres):
 docker compose up --build
 
-Obs: não precisa de Postgres instalado na máquina.
+Obs: não precisa instalar o PostgreSQL local.
 
 Aplicar migrations:
 docker compose exec api alembic upgrade head
@@ -144,4 +144,3 @@ BOAS PRÁTICAS APLICADAS
 - Versionamento de banco com Alembic
 - Swagger automático
 - Projeto pronto para deploy
-
