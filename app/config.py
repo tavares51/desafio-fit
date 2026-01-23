@@ -32,6 +32,9 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = Field(default="HS256")
     JWT_ACCESS_TOKEN_EXPIRES_MIN: int = Field(default=60)
 
+    # CORS
+    CORS_ORIGINS: str = Field(default="*")
+
     # Scopes
     SCOPE_BOOKS_READ: str = "books:read"
     SCOPE_BOOKS_WRITE: str = "books:write"

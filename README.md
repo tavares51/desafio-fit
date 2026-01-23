@@ -10,7 +10,7 @@ VISÃO GERAL
 --------------------------------------------------
 - FastAPI
 - SQLAlchemy + Alembic
-- SQLite (local) ou PostgreSQL (Docker)
+- PostgreSQL local (banco) + Supabase (storage)
 - JWT simples (Bearer Token)
 - Swagger / OpenAPI automático
 - Arquitetura em camadas (router, service, repository)
@@ -40,6 +40,23 @@ MODELO DE LIVRO
 - cover_url (URL da capa, opcional)
 
 --------------------------------------------------
+PRÉ-REQUISITO (BANCO LOCAL)
+--------------------------------------------------
+- PostgreSQL instalado e em execução
+- Banco criado (desafio_fit)
+- Usuário com acesso
+
+Usuário padrão (postgres):
+- Garanta o role e senha:
+  createuser -s postgres
+  psql -d postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+- DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/desafio_fit?sslmode=disable
+- DB_USER=postgres
+- DB_PASSWORD=postgres
+
+Exemplo (psql):
+CREATE DATABASE desafio_fit;
+
 RODAR LOCAL (SEM DOCKER)
 --------------------------------------------------
 1) Criar ambiente virtual
@@ -49,10 +66,14 @@ source .venv/bin/activate
 2) Instalar dependências
 pip install -r requirements.txt
 
-3) Aplicar migrations
+3) Ajustar .env
+- DATABASE_URL=postgresql+psycopg2://postgres:postgres@localhost:5432/desafio_fit?sslmode=disable
+- SUPABASE_URL / SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY para storage
+
+4) Aplicar migrations
 alembic upgrade head
 
-4) Subir a API
+5) Subir a API
 uvicorn app.main:app --reload --reload-dir app
 
 Swagger:
@@ -89,6 +110,7 @@ POST   /books
 GET    /books/{id}
 PATCH  /books/{id}
 DELETE /books/{id}
+POST   /books/{id}/cover
 
 --------------------------------------------------
 RODAR COM DOCKER
@@ -99,11 +121,17 @@ docker build -t desafio-fit-api .
 Rodar container:
 docker run -p 8000:8000 --env-file .env desafio-fit-api
 
+Obs: se usar Postgres local fora do container, troque o host para
+`host.docker.internal`:
+- DATABASE_URL=postgresql+psycopg2://postgres:postgres@host.docker.internal:5432/desafio_fit?sslmode=disable
+
 --------------------------------------------------
 RODAR COM DOCKER COMPOSE
 --------------------------------------------------
-Subir serviços:
+Subir serviços (API + Postgres):
 docker compose up --build
+
+Obs: não precisa de Postgres instalado na máquina.
 
 Aplicar migrations:
 docker compose exec api alembic upgrade head

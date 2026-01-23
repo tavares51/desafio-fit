@@ -1,13 +1,43 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: desafio-fit-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: desafio_fit
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d desafio_fit"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   api:
     build: .
     container_name: desafio-fit-api
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@db:5432/desafio_fit?sslmode=disable
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: desafio_fit
     ports:
       - "8000:8000"
     volumes:
       - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir app
+
+volumes:
+  postgres_data:

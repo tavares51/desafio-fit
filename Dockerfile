@@ -2,7 +2,13 @@
 FROM python:3.9-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/desafio_fit?sslmode=disable \
+    DB_USER=postgres \
+    DB_PASSWORD=postgres \
+    DB_HOST=db \
+    DB_PORT=5432 \
+    DB_NAME=desafio_fit
 
 WORKDIR /app
 
